@@ -1,6 +1,6 @@
-function classifier = sequential(a, b)
+function classifier = sequential(a, b, J)
     classifier = [];
-    while(~(isempty(a) || isempty(b)))
+    while(~(isempty(a) || isempty(b)) && size(classifier,1) < J) 
         G_good = false;
         while(~G_good)
             % select random points from a and b
@@ -12,7 +12,7 @@ function classifier = sequential(a, b)
             c1 = b_r(1) - a_r(1);
             c2 = b_r(2) - a_r(2);
             c3 = (a_r(1)^2 + a_r(2)^2 - b_r(1)^2 - b_r(2)^2)/2;
-            G = [c1 c2 c3];
+            G = [c1 c2 c3 0 0];
             % check classifier against points
             class_a = zeros(1, size(a, 1));
             for i=1:size(a, 1)
@@ -24,6 +24,8 @@ function classifier = sequential(a, b)
                 class_b(i) = applyDisc(G, b(i, :));
             end
             b_wrong = sum(class_b == 1);
+            G(4) = a_wrong;
+            G(5) = b_wrong;
             G_good = (a_wrong == 0 || b_wrong == 0);
         end
         classifier = [classifier; G];

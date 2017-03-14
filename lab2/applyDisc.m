@@ -1,5 +1,5 @@
 function class = applyDisc(G, x)
-    x = [x, 1];
+    x = [x, 1, 0, 0];
     disc = G * x';
     if disc >= 0
         class = 2;
