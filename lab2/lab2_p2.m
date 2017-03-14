@@ -37,24 +37,33 @@ contour(x, y, dec_map, 'g');
 
 % plot data
 hold on;
-plot(al(:,1), al(:,2), 'ro')
-plot(bl(:,1), bl(:,2), 'b+')
-plot(cl(:,1), cl(:,2), 'g.')
+aplot = plot(al(:,1), al(:,2), 'ro');
+bplot = plot(bl(:,1), bl(:,2), 'b+');
+cplot = plot(cl(:,1), cl(:,2), 'g.');
+
+legend([aplot, bplot, cplot], 'A', 'B', 'C');
 
 %%
 % Non-parametric estimation
 
+% sigma = 20
+% look for window size of +/- 3 standard deviations
 gaussWindow1D = normpdf(-60:1:60,0,20);
+% create a 2D gaussian dist's by multiplying 2 1D gaussian dist's
 gaussWindow2D = gaussWindow1D' * gaussWindow1D;
 
+% create the parzen probability maps
 [p_a, x_a, y_a] = parzen2(al, [1 0 0 500 500], gaussWindow2D);
 [p_b, x_b, y_b] = parzen2(bl, [1 0 0 500 500], gaussWindow2D);
 [p_c, x_c, y_c] = parzen2(cl, [1 0 0 500 500], gaussWindow2D);
 
+% take the class with the highest probability at each map location
+% if probabilities are all zero, don't take any class
 decMapPzn = maxPDF(x_a, x_b, p_a, p_b, p_c);
 figure;
 contour(x_a, y_a, decMapPzn, 'g');
 hold on;
-plot(al(:,1), al(:,2), 'ro')
-plot(bl(:,1), bl(:,2), 'b+')
-plot(cl(:,1), cl(:,2), 'g.')
+aplot = plot(al(:,1), al(:,2), 'ro')
+bplot = plot(bl(:,1), bl(:,2), 'b+')
+cplot = plot(cl(:,1), cl(:,2), 'g.')
+legend([aplot, bplot, cplot], 'A', 'B', 'C');
