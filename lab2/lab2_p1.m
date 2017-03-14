@@ -147,6 +147,7 @@ xlabel('x')
 % Dataset A
 x_a = [0:.1:10];
 sigma = 0.1;
+%sigma = 0.4;
 
 k = 1;
 dist_par_a_1 = parzen(x_a, a, k, sigma);
@@ -162,7 +163,8 @@ k = 100;
 dist_par_a_100 = parzen(x_a, a, k, sigma);
 a3 = plot(x_a, dist_par_a_100);
 
-a4 = plot(x,norm_true);
+norm_true = normpdf(x_a,5,1);
+a4 = plot(x_a,norm_true);
 
 legend([a1 a2 a3 a4], 'k=1', 'k=10', 'k=100', 'True Dist.');
 ylabel('p(x)');
@@ -172,6 +174,7 @@ xlabel('x');
 % Non-Parametric Estimation - Parzen Windows
 % Dataset B
 sigma = 0.1;
+%sigma = 0.4;
 x_b = [-2:0.05:10];
 
 k = 1;

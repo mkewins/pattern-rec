@@ -1,5 +1,6 @@
 function classifier = sequential(a, b, J)
     classifier = [];
+    iter = 1;
     while(~(isempty(a) || isempty(b)) && size(classifier,1) < J) 
         G_good = false;
         while(~G_good)
@@ -28,7 +29,24 @@ function classifier = sequential(a, b, J)
             G(5) = b_wrong;
             G_good = (a_wrong == 0 || b_wrong == 0);
         end
+
+        % plot the classifier and points
+%         figure;
+%         xlim([0 550])
+%         ylim([0 450])
+%         title(iter)
+%         iter = iter + 1;
+%         hold on;
+%         plot(a(:,1), a(:,2), 'r.');
+%         plot(b(:,1), b(:,2), 'b.');
+%         plot(a_r(1), a_r(2), 'r*');
+%         plot(b_r(1), b_r(2), 'b*');
+%         x = 0:1:550;
+%         y = (-G(1)*x -G(3)) / G(2);
+%         plot(x,y, 'g-');
+
         classifier = [classifier; G];
+
         % remove correctly classified points
         if b_wrong == 0
             a = a(class_a == 2, :);

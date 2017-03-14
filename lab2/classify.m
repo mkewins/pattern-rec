@@ -7,7 +7,7 @@ function class = classify(c, x)
     if cls == 1 && g(4) == 0
       class = cls;
       done = true;
-    else if cls == 2 && g(5) == 0
+    elseif cls == 2 && g(5) == 0
       class = cls;
       done = true;
     end
