@@ -59,23 +59,29 @@ legend('a', 'b', 'c3 sequential classifiers');
 %%
 % Classify sequentially
 
-% CURRENTLY NOT WORKING
-
 % Setup grid for classification
-xrange = [0, 500];
-yrange = [0, 500];
-inc = 5;
-[x, y] = meshgrid(xrange(1):inc:xrange(2), yrange(1):inc:yrange(2));
+[x, y] = meshgrid(0:1:500, 0:1:500);
 image_size = size(x);
 xy = [x(:) y(:)];
 
 % classify each point
 classes = zeros(length(xy), 1);
 for i=1:length(xy)
-    classes(i) = classify(c1,xy(i,:));
+    %classes(i) = classify(c1,xy(i,:));
+    %classes(i) = classify(c2,xy(i,:));
+    classes(i) = classify(c3,xy(i,:));
 end
 dec_map = reshape(classes, image_size);
+figure;
+hold on;
 contour(x, y, dec_map, 'g');
+ap = plot(a(:,1), a(:,2), 'r.');
+bp = plot(b(:,1), b(:,2), 'b.');
+legend('decision boundary','a','b');
+xlabel('x')
+ylabel('y')
+title('c2')
+
 %%
 % 3. Iterate through different J values, find error rates
 
@@ -166,3 +172,5 @@ j5_error = j5_error/400;
 figure;
 error_stats = [j1_error; j2_error; j3_error; j4_error; j5_error];
 boxplot(error_stats');
+xlabel('J')
+ylabel('Percent Error')
