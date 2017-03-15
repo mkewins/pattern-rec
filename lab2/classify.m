@@ -1,6 +1,7 @@
 function class = classify(c, x)
   done = false;
   i = 1;
+  class = 0;
   while(~done && i < size(c,1))
     g=c(i,:);
     cls = applyDisc(g, x);
