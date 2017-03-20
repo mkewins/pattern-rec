@@ -1,7 +1,8 @@
 function classifier = sequential(a, b, J)
     classifier = [];
     iter = 1;
-    while(~(isempty(a) || isempty(b)) && size(classifier,1) < J) 
+    l = size(classifier,1);
+    while(~(isempty(a) || isempty(b)) && l < J)
         G_good = false;
         while(~G_good)
             % select random points from a and b
@@ -34,7 +35,7 @@ function classifier = sequential(a, b, J)
 %         figure;
 %         xlim([0 550])
 %         ylim([0 450])
-%         title(iter)
+%         title(mat2str(G))
 %         iter = iter + 1;
 %         hold on;
 %         plot(a(:,1), a(:,2), 'r.');
